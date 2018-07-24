@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../../Content/dashboard.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="sidenav">
+        <a ui-sref="Client">Client</a>
+        <a ui-sref="Flight">Flight</a>
+        <a ui-sref="Car">Car</a>
+        <a ui-sref="Hotel">Hotel</a>
+    </div>
+    <div class="main">
+        <ol class="breadcrumb">
+            <li><a ui-sref="AdminDashBoard">Dashboard</a></li>
+            <li class="active">Clients</li>
+        </ol>
+        <article class="col-xs-12">
+            <header class="page-header">
+                <h3 class="page-title">Monitor Client Accounts</h3>
+            </header>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <td scope="col"><b>ID</b></td>
+                        <td scope="col"><b>Title</b></td>
+                        <td scope="col"><b>First Name</b></td>
+                        <td scope="col"><b>Surname</b></td>
+                        <td scope="col"><b>Email</b></td>
+                        <td scope="col"><b>Password</b></td>
+                        <td scope="col"><b>Delete Account</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="client in Clients">
+                        <td>{{client.ClientId}}</td>
+                        <td>{{client.Title}}</td>
+                        <td>{{client.FirstName}}</td>
+                        <td>{{client.Surname}}</td>
+                        <td>{{client.Email}}</td>
+                        <td>{{client.Password}}</td>
+                        <td>
+                            <input class="btn btn-primary" type="button" value="Delete" ng-click="adminDelClientById(client.ClientId)" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </article>
+    </div>
+
+</body>
+</html>

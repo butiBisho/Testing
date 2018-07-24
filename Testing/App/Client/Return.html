@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>   
+    <style>
+        #colPush {
+            background-color: #A6BFBA;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!--Testing-->
+        <div class="row">
+            <div ng-class="showgraphSidebar ? 'col-xs-3' : 'hidden'" id="colPush">                
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-10 text-center">
+                                <h1>Flight Details</h1>
+                                <hr/>
+                                <p><b>Total Price</b></p>
+                                <p>R{{(SelectedFlights.Price + SelectedFlightsTo.Price) * TotalTravellers}}</p>
+                                <p>for {{TotalTravellers}} Traveller</p>
+                                <p>
+                                    <button class="btn btn-primary" ui-sref="Traveller">Continue</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--From-->
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <b>{{SelectedFlights.DepartureLocation}} to {{SelectedFlights.DepartureLocation}}</b>
+                                <hr />
+                                <p>{{SelectedFlights.AirlineName}}</p>
+                                <p>{{SelectedFlights.DepartureTime}} -- {{SelectedFlights.ArrivalTime}}</p>
+                                <p>{{SelectedFlights.FlightDate}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <!--From-->
+                <!--To-->
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <b>{{SelectedFlightsTo.DepartureLocation}} to {{SelectedFlightsTo.DepartureLocation}}</b>
+                                <hr />
+                                <p>{{SelectedFlightsTo.AirlineName}}</p>
+                                <p>{{SelectedFlightsTo.DepartureTime}} -- {{SelectedFlightsTo.ArrivalTime}}</p>
+                                <p>{{SelectedFlightsTo.FlightDate}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--To-->
+            </div>
+            <div ng-class="showgraphSidebar ? 'col-xs-9' : 'col-xs-12'" id="colMain">
+                <!--<button ng-click='toggle()'>Sidebar Toggle</button>-->
+                <ol class="breadcrumb">
+                    <li><a ui-sref="Index">Home</a></li>
+                    <li class="active">Filter Search</li>
+                </ol>
+                <div class="row">
+                    <article class="col-xs-12">
+                        <div>
+                            <div class="panel panel-info">
+                                <div class="panel-heading">Search Details</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <input value="{{tasks.departureLocation}}" style="height:50px;width:220px;padding:5px;float:left;" />
+                                            <input value="{{tasks.arrivalLocation}}" style="height:50px;width:220px;padding:5px;float:left;" />
+                                            <input value="{{tasks.departureDate}}" style="height:50px;min-width:20px;padding:5px;float:left;" />
+                                            <input value="{{tasks.arrivalDate}}" style="height:50px;min-width:20px;padding:5px;float:left;" />
+                                            <input value="{{TotalTravellers}}" style="height:50px;width:50px;padding:5px;float:left;" />
+                                            <button class="btn btn-primary" ui-sref="Search" style="height:50px;width:100px;padding:5px;float:left;">Refine Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="row">
+                    <article class="col-xs-12">
+                        <header class="page-header">
+                            <h4 class="page-title">Filter Search</h4>
+                        </header>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label>Search :</label>
+                                <input class="form-control" value="" type="text" ng-model="search[searchBy]" />
+                            </div>
+                            <div class="form-group">
+                                <label>Search By :</label>
+                                <select ng-model="searchBy" class="form-control">
+                                    <option value="$"></option>
+                                    <option value="Price">Price</option>
+                                    <option value="Stops">Stops</option>
+                                    <option value="AirlineName">Airline Name</option>
+                                </select>
+                            </div>
+                        </form>
+                        <br />
+                        <article class="col-xs-6">
+                            <div class="text-left"><b>Flights from {{tasks.departureLocation}} to {{tasks.arrivalLocation}}</b></div>
+                            <br />
+                            <div ng-repeat="x in flights | filter:search" class="col-xs-10">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-10">
+                                                <p>
+                                                    <input type="radio" ng-click="GetFromDetails(x)" />  <b>{{x.AirlineName}}</b><br />
+                                                    {{x.DepartureTime}}<br />{{x.DepartureLocation}}
+                                                    To
+                                                    {{x.ArrivalTime}}<br />{{x.ArrivalLocation}}<br />
+                                                    {{x.Stops}} stops, <b>R{{x.Price}}</b>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="col-xs-6">
+                            <div class="text-left"><b>Flights from {{tasks.arrivalLocation}} to {{tasks.departureLocation}}</b></div>
+                            <br />
+                            <div ng-repeat="x in ReturnFlights | filter:search" class="col-xs-10">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-10">
+                                                <p>
+                                                    <input type="radio" ng-click="GetToDetails(x)" />  <b>{{x.AirlineName}}</b><br />
+                                                    {{x.DepartureTime}}<br />{{x.DepartureLocation}}
+                                                    To
+                                                    {{x.ArrivalTime}}<br />{{x.ArrivalLocation}}<br />
+                                                    {{x.Stops}} stops, <b>R{{x.Price}}</b>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <!--Testing-->
+    </div>  
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a ui-sref="Index">Home</a></li>
+            <li><a ui-sref="CarIndex">Search</a></li>
+            <li><a ui-sref="FilterCar">Filter Car</a></li>
+            <li class="active">Add Driver</li>
+        </ol>
+        <ol class="breadcrumb">
+            <li><a ui-sref="ClientDashboard">DashBoard</a></li>
+            <li>Logged in as : {{Email}}</li>
+            <li><a ui-sref="CarIndex">Logout</a></li>
+        </ol>        
+        <div class="row">
+            <article class="col-sm-8">
+                <header class="page-header">
+                    <h1 class="page-title">Lead driver details</h1>
+                </header>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3>Add Driver</h3>
+                            <hr />
+                            <form novalidate name="f1" ng-submit="SaveData(Driver)">
+                                <div style="color:red">{{message}}</div>
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input class="form-control" type="text" ng-model="Driver.FirstName" name="uFirstName" ng-class="submitted?'ng-dirty':''" />
+                                    <span class="error" ng-show="(f1.uFirstName.$dirty || submitted) && f1.uFirstName.$error.required">First Name required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Surname</label>
+                                    <input class="form-control" type="text" ng-model="Driver.Surname" name="uSurname" ng-class="submitted?'ng-dirty':''" required />
+                                    <span class="error" ng-show="(f1.uSurname.$dirty || submitted) && f1.uSurname.$error.required">Surname required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input class="form-control" type="email" ng-model="Driver.Email" name="uEmail" ng-class="submitted?'ng-dirty':''" required />
+                                    <span class="error" ng-show="(f1.uEmail.$dirty || submitted) && f1.uEmail.$error.required">Email required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone</label>
+                                    <input class="form-control" type="text" ng-model="Driver.Phone" name="Phone" ng-class="submitted?'ng-dirty':''" required />
+                                    <span class="error" ng-show="(f1.Phone.$dirty || submitted) && f1.Phone.$error.required">Phone number required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <textarea rows="4" cols="50" name="address" class="form-control" ng-model="Driver.Address" ng-class="submitted?'ng-dirty':''" required>
+                                    </textarea>
+                                    <span class="error" ng-show="(f1.address.$dirty || submitted) && f1.address.$error.required">Address required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <input class="form-control" type="text" ng-model="Driver.City" name="City" ng-class="submitted?'ng-dirty':''" required />
+                                    <span class="error" ng-show="(f1.City.$dirty || submitted) && f1.City.$error.required">City required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Postal Code</label>
+                                    <input class="form-control" type="text" ng-model="Driver.PostalCode" name="PostalCode" ng-class="submitted?'ng-dirty':''" required />
+                                    <span class="error" ng-show="(f1.PostalCode.$dirty || submitted) && f1.PostalCode.$error.required">Postal Code required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Country</label>
+                                    <input class="form-control" type="text" ng-model="Driver.Country" name="Country" ng-class="submitted?'ng-dirty':''" required />
+                                    <span class="error" ng-show="(f1.Country.$dirty || submitted) && f1.Country.$error.required">Country required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Flight Number</label>
+                                    <input class="form-control" type="text" ng-model="Driver.FlightNumber" name="FlightNumber" ng-class="submitted?'ng-dirty':''" required />
+                                    <span class="error" ng-show="(f1.FlightNumber.$dirty || submitted) && f1.FlightNumber.$error.required">Flight Number required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Driver's Age</label>
+                                    <input class="form-control" type="number" ng-model="Driver.Age" name="Age" ng-class="submitted?'ng-dirty':''" required />
+                                    <span class="error" ng-show="(f1.Age.$dirty || submitted) && f1.Age.$error.required">Age required!</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <input type="submit" value="{{submitText}}" class="btn btn-primary" />
+                                    </div>
+                                    <div class="col-lg-4 text-left">
+                                        <input type="submit" value="Book" class="btn btn-primary" ng-click="MakeBooking()" />
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input type="submit" value="Make Payment" class="btn btn-primary" ui-sref="Booking" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Details</div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>Car Name</dt>
+                            <dd>{{carDetails.Name}}</dd>
+                            <dd><img ng-src="{{img}}" style="width:200px;height:80px;"/></dd>
+                            <dt>Mileage</dt>
+                            <dd>{{carDetails.Mileage}}</dd>
+                            <dt>Car Specification</dt>
+                            <dd>{{carDetails.CarSpecifications}}</dd>
+                            <dt>SupplierID</dt>
+                            <dd>{{carDetails.SupplierID}}</dd>
+                            <dt>Transmission</dt>
+                            <dd>{{carDetails.Transmission}}</dd>
+                            <dt>Special Offer</dt>
+                            <dd>{{carDetails.SpecialOffer}}</dd>
+                            <dt>Date</dt>
+                            <dd>{{carDetails.Date}}</dd>
+                            <dt>Total Cars</dt>
+                            <dd>{{carDetails.TotalCars}}</dd>
+                            <dt>Cars Left</dt>
+                            <dd>{{carDetails.CarsLeft}}</dd>
+                            <dt>Price</dt>
+                            <dd>{{carDetails.Price}}</dd>
+                            <dt>Total Cost</dt>
+                            <dd>R{{TotalCost}}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

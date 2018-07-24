@@ -1,0 +1,489 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../../Content/dashboard.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css" />
+</head>
+<body>
+    <div class="sidenav">
+        <!--<a ui-sref="Client">Client</a>-->
+        <a ui-sref="Flight">Flight</a>
+        <a ui-sref="Car">Car</a>
+        <a ui-sref="Hotel">Hotel</a>
+    </div>
+    <div class="main">
+        <ol class="breadcrumb">
+            <li><a ui-sref="AdminDashBoard">Dashboard</a></li>
+            <li class="active">Flights</li>
+        </ol>
+        <article class="col-xs-12">
+            <header class="page-header">
+                <h3 class="page-title">Flight Module</h3>
+            </header>
+            <div ng-init="tab = 1" class="nav nav-pills" role="tablist">
+                <div ng-class="{active:tab===1}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 1" class="navbar-link active">Airport</a>
+                </div>
+                <div ng-class="{active:tab===2}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 2" class="navbar-link">Extras</a>
+                </div>
+                <div ng-class="{active:tab===3}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 3" class="navbar-link">Airline</a>
+                </div>
+                <div ng-class="{active:tab===4}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 4" class="navbar-link">Flight</a>
+                </div>
+            </div>
+            <div ng-show="tab === 1">
+                <!--Test-->
+                <div class="form-group">
+                    <input class="btn btn-primary" type="button" value="Insert Airport" ng-click="OpenInsertAirport()"/>
+                </div>
+                <br/>
+                <div ng-hide="InsertLocation">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3>Add Airport</h3>
+                            <div class="form-group">
+                                <label>AirportName</label>
+                                <input type="text" ng-model="Loc.AirportName" placeholder="Enter Airport name" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" ng-model="Loc.City" placeholder="Enter City" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Country</label>
+                                <input type="text" ng-model="Loc.Country" placeholder="Enter Country" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>IATA</label>
+                                <input type="text" ng-model="Loc.IATA" placeholder="Enter IATA" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="button" value="Insert Airport" ng-click="InsertAdminLocation(Loc)" class="btn btn-primary"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Test-->
+                <h1>List of Airports</h1>
+                <!--Testing-->
+                <div ng-show="Locations.length!=0" ng-repeat="x in Locations">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p hidden>LocationId: {{x.LocationId}}</p></div>
+                                <div class="col-lg-8"><p>AirportName: {{x.AirportName}}</p></div>
+                                <div class="col-lg-8"><p>City: {{x.City}}</p></div>
+                                <div class="col-lg-8"><p>Country: {{x.Country}}</p></div>
+                                <div class="col-lg-8"><p>IATA: {{x.IATA}}</p></div>
+                                <div class="col-lg-8"><p hidden>AdmiId: {{x.AdmiId}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Edit" ng-click="GetLocById(x.LocationId)" />
+                                    <input class="btn btn-primary" type="button" value="Delete" ng-click="DelLocById(x.LocationId)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="Locations.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Airports</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Airports added</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row" ng-hide="HideLocation">
+                    <article class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Update Airport</div>
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Port.LocationId}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>AirportName</label>
+                                        <input class="form-control" type="text" ng-model="Port.AirportName" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input class="form-control" type="text" ng-model="Port.City" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <input class="form-control" type="text" ng-model="Port.Country" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>IATA</label>
+                                        <input class="form-control" type="text" ng-model="Port.IATA" />
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Port.AdminId}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" value="updateLoc" ng-click="updateLoc(Port)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!--Testing-->
+            </div>
+            <div ng-show="tab === 2">
+                <!--Test-->
+                <div class="form-group">
+                    <input class="btn btn-primary" type="button" value="Insert Extra" ng-click="OpenInsertExtra()"/>
+                </div>
+                <div ng-hide="InsertExtra">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3>Add Extra</h3>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" ng-model="Extra.Name" placeholder="Enter Name" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input type="number" ng-model="Extra.Price" placeholder="Enter Price" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea rows="4" cols="50" ng-model="Extra.Description" placeholder="Enter Description" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="button" value="Insert Extra" ng-click="InsertAdminExtra(Extra)" class="btn btn-primary"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Test-->
+                <h1>List of Extras</h1>
+                <!--Testing-->
+                <div ng-show="Extras.length!=0" ng-repeat="x in Extras">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p hidden>ExtrasId: {{x.ExtrasId}}</p></div>
+                                <div class="col-lg-8"><p>Name: {{x.Name}}</p></div>
+                                <div class="col-lg-8"><p>Price: {{x.Price}}</p></div>
+                                <div class="col-lg-8"><p>Description: {{x.Description}}</p></div>
+                                <div class="col-lg-8"><p hidden>AdminId: {{x.AdminId}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Edit" ng-click="GetExtraById(x.ExtrasId)" />
+                                    <input class="btn btn-primary" type="button" value="Delete" ng-click="DelExtraById(x.ExtrasId)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="Extras.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Extras</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Extras added</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/> 
+                <div class="row" ng-hide="HideExtra">
+                    <article class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Update Extras</div>
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Plus.ExtrasId}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input class="form-control" type="text" ng-model="Plus.Name" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Price</label>
+                                        <input class="form-control" type="text" ng-model="Plus.Price" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <textarea class="form-control" rows="4" cols="50" ng-model="Plus.Description"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Plus.AdminID}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" value="updateExtra" ng-click="updateExtra(Plus)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!--Testing-->
+            </div>
+            <div ng-show="tab === 3">
+                <!--Test-->
+                <div class="form-group">
+                    <input class="btn btn-primary" type="button" value="Insert Airline" ng-click="OpenInsertAirline()"/>
+                </div>
+                <div ng-hide="InsertAirline">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3>Add Airline</h3>
+                            <div class="form-group">
+                                <label>Airline Name</label>
+                                <input type="text" ng-model="Airline.AirlineName" placeholder="Enter Airline Name" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label>IATA</label>
+                                <input type="text" ng-model="Airline.IATA" placeholder="Enter IATA" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="button" value="Insert Airline" ng-click="InsertAdminAirline(Airline)" class="btn btn-primary"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Test-->
+                <h1>List of Airlines</h1>
+                <!--Testing-->
+                <div ng-show="Airlines.length!=0" ng-repeat="x in Airlines">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p hidden>SupplierId: {{x.AirlineId}}</p></div>
+                                <div class="col-lg-8"><p>Name: {{x.AirlineName}}</p></div>
+                                <div class="col-lg-8"><p>Name: {{x.IATA}}</p></div>
+                                <div class="col-lg-8"><p hidden>AdminID: {{x.AdminId}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Edit" ng-click="GetAirlineById(x.AirlineId)" />
+                                    <input class="btn btn-primary" type="button" value="Delete" ng-click="DelAirlineById(x.AirlineId)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="Airlines.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Airlines</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Airlines added</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row" ng-hide="HideAirline">
+                    <article class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Update Airline</div>
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Supplier.AirlineId}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Airline Name</label>
+                                        <input class="form-control" type="text" ng-model="Supplier.AirlineName" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>IATA</label>
+                                        <input class="form-control" type="text" ng-model="Supplier.IATA" />
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Supplier.AdminID}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" value="updateAirline" ng-click="updateAirline(Supplier)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!--Testing-->
+            </div>
+            <div ng-show="tab === 4">                
+                <div class="form-group">
+                    <input class="btn btn-primary" type="button" value="Insert flight" ng-click="OpenInsertFlight()" />
+                </div>
+                <br />
+                <!--Test-->
+                <div ng-hide="InsertFlight">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3>Add Flight</h3>
+                            <div class="form-group">
+                                <input type="text" ng-model="Flight.DepartureTime" placeholder="Enter Departure Time" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" ng-model="Flight.ArrivalTime" placeholder="Enter Arrival Time" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <select ng-model="Flight.departureLocation" required name="departure" class="form-control">
+                                    <option ng-repeat="x in locations" value="{{x.AirportName}}">{{x.AirportName}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select ng-model="Flight.arrivalLocation" required name="arrival" class="form-control">
+                                    <option ng-repeat="y in locations" value="{{y.AirportName}}">{{y.AirportName}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" ng-model="Flight.Stops" placeholder="Enter Stops" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="number" ng-model="Flight.Price" placeholder="Enter Price" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <!--<input type="number" ng-model="Flight.AirL_ID" placeholder="Enter AirL_ID" class="form-control" />-->
+                                <select ng-model="Flight.AirL_ID" required name="AirL_ID" class="form-control">                                    
+                                    <option ng-repeat="x in Airlines" value="{{x.AirlineId}}">{{x.AirlineName}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" datepicker ng-model="Flight.FlightDate" placeholder="Enter Flight Date" name="Date" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="number" ng-model="Flight.TotalSeats" placeholder="Enter Total Seats" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="number" ng-model="Flight.SeatsLeft" placeholder="Enter Seats Left" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="button" value="Insert Flight" ng-click="InsertAdminFlight(Flight)" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <!--Test-->
+                <h1>List of Flights</h1>
+                <!--Testing-->
+                <div ng-show="Flights.length!=0" ng-repeat="x in Flights">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p hidden>FlightId: {{x.FlightId}}</p></div>
+                                <div class="col-lg-8"><p>DepartureTime: {{x.DepartureTime}}</p></div>
+                                <div class="col-lg-8"><p>ArrivalTime: {{x.ArrivalTime}}</p></div>
+                                <div class="col-lg-8"><p>DepartureLocation: {{x.DepartureLocation}}</p></div>
+                                <div class="col-lg-8"><p>ArrivalLocation: {{x.ArrivalLocation}}</p></div>
+                                <div class="col-lg-8"><p>Stops: {{x.Stops}}</p></div>
+                                <div class="col-lg-8"><p>Price: {{x.Price}}</p></div>
+                                <div class="col-lg-8"><p hidden>AirL_ID: {{x.AirL_ID}}</p></div>
+                                <div class="col-lg-8"><p>FlightDate: {{x.FlightDate}}</p></div>
+                                <div class="col-lg-8"><p hidden>AdminID: {{x.AdminID}}</p></div>
+                                <div class="col-lg-8"><p>TotalSeats: {{x.TotalSeats}}</p></div>
+                                <div class="col-lg-8"><p>SeatsLeft: {{x.SeatsLeft}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Edit" ng-click="GetFlightById(x.FlightId)" />
+                                    <input class="btn btn-primary" type="button" value="Delete" ng-click="DelFlightById(x.FlightId)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="Flights.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Flights</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Flights added</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row" ng-hide="HideFlight">
+                    <article class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Update Flight</div>
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Seat.FlightId}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Departure Time</label>
+                                        <input class="form-control" type="text" ng-model="Seat.DepartureTime" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Arrival Time</label>
+                                        <input class="form-control" type="text" ng-model="Seat.ArrivalTime" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Departure Location</label>
+                                        <input class="form-control" type="text" ng-model="Seat.DepartureLocation" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Arrival Location</label>
+                                        <input class="form-control" type="text" ng-model="Seat.ArrivalLocation" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Stops</label>
+                                        <input class="form-control" type="text" ng-model="Seat.Stops" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Price</label>
+                                        <input class="form-control" type="number" ng-model="Seat.Price" />
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Seat.AirL_ID}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Flight Date</label>                                        
+                                        <input type="text" datepicker placeholder="Select Date" ng-model="Seat.FlightDate" id="departDate" name="departDate" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Seat.AdminID}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Total Seats</label>
+                                        <input class="form-control" type="text" ng-model="Seat.TotalSeats" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Seats Left</label>
+                                        <input class="form-control" type="text" ng-model="Seat.SeatsLeft" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" value="updateFlight" ng-click="updateFlight(Seat)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!--Testing-->
+            </div>
+        </article>
+    </div>
+</body>
+</html>

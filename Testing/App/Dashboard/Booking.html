@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../../Content/dashboard.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="sidenav">        
+        <a ui-sref="Booking">Bookings</a>
+        <a ui-sref="Additional">Additional</a>        
+    </div>
+    <div class="main">
+        <ol class="breadcrumb">
+            <li ui-sref="Index">Home</li>
+            <li class="active">Bookings</li>
+        </ol>
+        <article class="col-xs-12">
+            <header class="page-header">
+                <h3 class="page-title">Bookings</h3>
+            </header>
+            <div ng-init="tab = 1" class="nav nav-pills" role="tablist">
+                <div ng-class="{active:tab===1}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 1" class="navbar-link active">Flight</a>
+                </div>
+                <div ng-class="{active:tab===2}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 2" class="navbar-link">Car</a>
+                </div>
+                <div ng-class="{active:tab===3}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 3" class="navbar-link">Hotel</a>
+                </div>
+            </div>
+            <div ng-show="tab === 1">
+                <div ng-show="FlightBookings.length!=0" ng-repeat="x in FlightBookings">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Flight Bookings</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p>Booking date is: {{x.DateCreated.slice(0,10)}}</p></div>
+                                <div class="col-lg-8"><p>Flight from: {{x.DepartureLocation}} To {{x.ArrivalLocation}}</p></div>
+                                <div class="col-lg-8"><p>Departure Time: {{x.DepartureTime}} - Arrival Time: {{x.ArrivalTime}}</p></div>
+                                <div class="col-lg-8"><p>Status of the Booking is: {{x.Status}}</p></div>
+                                <div class="col-lg-8"><p>Total Cost is: R{{x.TotalCost | number : 2}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Cancel Booking" ng-click="DelFlightBookingById(x.CF_Id)" />
+                                    <input class="btn btn-primary" type="button" value="Make Payment" ui-sref="FlightPayment" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="FlightBookings.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Flight Bookings</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Flight Bookings</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="tab === 2">
+                <div ng-show="CarBookings.length!=0" ng-repeat="item in CarBookings">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Car Bookings</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p>Booking date is: {{item.DateCreated.slice(0,10)}}</p></div>
+                                <div class="col-lg-8"><p>Car Name: {{item.Name}}</p></div>
+                                <!--<div class="col-lg-8"><p>Rented Car Location is: {{item.Location}}</p></div>-->                                
+                                <div class="col-lg-8"><p>Status of the Booking is: {{item.Status}}</p></div>
+                                <div class="col-lg-8"><p>Total Cost is: R{{item.TotalCost | number : 2}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Cancel Booking" ng-click="DelCarBookingById(item.CC_Id)" />
+                                    <input class="btn btn-primary" type="button" value="Make Payment" ui-sref="CarPayment" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                <div ng-show="CarBookings.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Car Bookings</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Car Bookings</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="tab === 3">
+                <div ng-show="HotelBookings.length!=0" ng-repeat="item in HotelBookings">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Hotel Booking</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p>Booking date is: {{item.DateCreated.slice(0,10)}}</p></div>
+                                <div class="col-lg-8"><p>Hotel Name: {{item.Name}}</p></div>
+                                <div class="col-lg-8"><p>Status of the Booking is: {{item.Status}}</p></div>
+                                <div class="col-lg-8"><p>Total Cost is: R{{item.TotalCost | number : 2}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Cancel Booking" ng-click="DelHotelBookingById(item.CH_Id)" />
+                                    <input class="btn btn-primary" type="button" value="Make Payment" ui-sref="HotelPayment" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="HotelBookings.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Hotel Bookings</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Hotel Bookings</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css" />
+    <style type="text/css">
+        select:required:invalid {
+            color: gray;
+        }
+
+        option[value=""][disabled] {
+            display: none;
+        }
+
+        option {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a ui-sref="Index">Home</a></li>
+            <li class="active">Car</li>
+        </ol>
+        <ol class="breadcrumb">
+            <li><a ui-sref="CarLogin">Login</a></li>
+            <li><a ui-sref="AdminLogin">Admin Login</a></li>
+        </ol>
+        <div class="row">
+            <article class="col-xs-12">
+                <header class="page-header">
+                    <h1 class="page-title">Search, Compare And Book Car Hire</h1>
+                </header>
+                <form>
+                    <!--<div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input type="radio" name="carRental" autocomplete="off"> Car Rental
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="transfers" autocomplete="off"> Transfers
+                </label>
+            </div>-->
+                    <br />
+
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <select required name="pickUp" ng-model="requestedData.pickUp" style="height:70px;min-width:500px;padding:20px;float:left;">
+                                <option value="" disabled selected>Pick-up Location</option>
+                                <option ng-repeat="x in locations" value="{{x.AirportName}}">{{x.AirportName}}</option>
+                            </select>
+                            <select required name="dropOff" ng-model="requestedData.dropOff" style="height:70px;min-width:500px;padding:20px;float:left;">
+                                <option value="" disabled selected>Drop-off Location</option>
+                                <option ng-repeat="x in locations" value="{{x.AirportName}}">{{x.AirportName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <input name="pickUpDate" datepicker type="text" placeholder="Pick-up Date" ng-model="requestedData.pickUpDate" style="height:70px;min-width:400px;padding:20px;float:left;" />
+                            <select required name="pickUpTime" ng-model="requestedData.pickUpTime" ng-options="opt as opt for opt in [] | minmax:01:24" style="height:70px;width:100px;padding:20px;float:left;">
+                                <option value="" disabled selected>Time</option>
+                            </select>
+                            <input name="dropOffDate" datepicker type="text" placeholder="Drop-off Date" ng-model="requestedData.dropOffDate" style="height:70px;min-width:400px;padding:20px;float:left;" />
+                            <select required name="dropOffTime" ng-model="requestedData.dropOffTime" ng-options="opt as opt for opt in [] | minmax:01:24" style="height:70px;width:100px;padding:20px;float:left;">
+                                <option value="" disabled selected>Time</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><button class="btn btn-primary" ng-click="saveSelectedData(requestedData)" style="float:left;display:block;height:50px;width:100px;">Search</button></div>
+                    </div>
+                </form>
+            </article>
+            <hr />
+            <div class="text-center">
+                <h3>Our Most Trusted Suppliers</h3>
+            </div>
+            <article class="col-xs-12">
+                <div style="padding-left:5%;">
+                    <img src="../../car/avis.png" style="width:15%;height:30%;"/>
+                    <img src="../../car/budget.png" style="width:15%;height:30%;"/>
+                    <img src="../../car/europcar.png" style="width:15%;height:30%;"/>
+                    <img src="../../car/hertz.png" style="width:15%;height:30%;"/>
+                    <img src="../../car/thrifty.png" style="width:15%;height:30%;"/>
+                </div>
+                <!--<div class="col-md-6 text-center" style="padding-left:5%;">
+                   
+                </div>-->
+            </article>
+        </div>
+    </div>
+
+</body>
+</html>

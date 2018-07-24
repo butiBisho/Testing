@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../../Content/dashboard.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css" />
+</head>
+<body>
+    <div class="sidenav">
+        <!--<a ui-sref="Client">Client</a>-->
+        <a ui-sref="Flight">Flight</a>
+        <a ui-sref="Car">Car</a>
+        <a ui-sref="Hotel">Hotel</a>
+    </div>
+    <div class="main">
+        <ol class="breadcrumb">
+            <li><a ui-sref="AdminDashBoard">Dashboard</a></li>
+            <li class="active">Cars</li>
+        </ol>
+        <article class="col-xs-12">
+            <header class="page-header">
+                <h3 class="page-title">Car Module</h3>
+            </header>
+            <div ng-init="tab = 1" class="nav nav-pills" role="tablist">
+                <div ng-class="{active:tab===1}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 1" class="navbar-link active">Supplier</a>
+                </div>
+                <div ng-class="{active:tab===2}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 2" class="navbar-link">Car</a>
+                </div>
+                <!--<div ng-class="{active:tab===3}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 3" class="navbar-link">Car Images</a>
+                </div>-->
+            </div>
+            <div ng-show="tab === 1">
+                <!--Testing-->
+                <div class="form-group">
+                    <input class="btn btn-primary" type="button" value="Add Supplier" ng-click="OpenInsertSupplier()" />
+                </div>
+                <div ng-hide="InsertSupplier">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3>Add Supplier</h3>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input class="form-control" type="text" ng-model="Supplier.Name" placeholder="Enter Name" />
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-primary" type="button" value="Insert Supplier" ng-click="InsertAdminSupplier(Supplier)" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Testing-->
+                <!--Testing-->
+                <div ng-show="Suppliers.length!=0" ng-repeat="x in Suppliers">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">List of Supplier</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p hidden>SupplierId: {{x.SupplierId}}</p></div>
+                                <div class="col-lg-8"><p>Name: {{x.Name}}</p></div>
+                                <div class="col-lg-8"><p hidden>AdminID: {{x.AdminID}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Edit" ng-click="GetSupplierById(x.SupplierId)" />
+                                    <input class="btn btn-primary" type="button" value="Delete" ng-click="DelSupplierById(x.SupplierId)" />                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="Suppliers.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Suppliers</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Suppliers added</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row" ng-hide="HideSupplier">
+                    <article class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Update Supplier</div>
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Dealer.SupplierId}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input class="form-control" type="text" ng-model="Dealer.Name" />
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Dealer.AdminID}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" value="Update" ng-click="updateSupplier(Dealer)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div ng-show="tab === 2">                
+                <div class="form-group">
+                    <input class="btn btn-primary" type="button" value="Insert Car" ng-click="OpenInsertCar()" />
+                </div>
+                <!--Test-->
+                <div ng-hide="InsertCar">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3>Add Car</h3>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" ng-model="Car.Name" placeholder="Enter Name" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Mileage</label>
+                                <input type="text" ng-model="Car.Mileage" placeholder="Enter Mileage" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input type="number" ng-model="Car.Price" placeholder="Enter Price" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>SpecialOffer</label>
+                                <input type="text" ng-model="Car.SpecialOffer" placeholder="Enter Special Offer" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>CarSpecifications</label>
+                                <input type="text" ng-model="Car.CarSpecifications" placeholder="Enter Car Specifications" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Transmission</label>
+                                <input type="text" ng-model="Car.Transmission" placeholder="Enter Transmission" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Supplier Name</label>
+                                <!--<input type="number" ng-model="Car.SupplierID" placeholder="Enter SupplierId" class="form-control" />-->
+                                <select ng-model="Car.SupplierID" required name="SupplierID" class="form-control">
+                                    <option ng-repeat="x in Suppliers" value="{{x.SupplierId}}">{{x.Name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Location</label>
+                                <input type="text" ng-model="Car.Location" placeholder="Enter Location" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="text" datepicker placeholder="Select Date" ng-model="Car.Date" id="departDate" name="departDate" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>TotalCars</label>
+                                <input type="number" ng-model="Car.TotalCars" placeholder="Enter Total Cars" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>CarsLeft</label>
+                                <input type="number" ng-model="Car.CarsLeft" placeholder="Enter Cars Left" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="button" value="Insert Car" ng-click="InsertAdminCar(Car)" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <!--Test-->
+                <!--Testing-->
+                <h1>List of Cars</h1>
+                <div ng-show="Cars.length!=0" ng-repeat="x in Cars">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p hidden>SupplierId: {{x.CarId}}</p></div>
+                                <div class="col-lg-8"><p>Name: {{x.Name}}</p></div>
+                                <div class="col-lg-8"><p>Mileage: {{x.Mileage}}</p></div>
+                                <div class="col-lg-8"><p>Price: {{x.Price}}</p></div>
+                                <div class="col-lg-8"><p>SpecialOffer: {{x.SpecialOffer}}</p></div>
+                                <div class="col-lg-8"><p>CarSpecifications: {{x.CarSpecifications}}</p></div>
+                                <div class="col-lg-8"><p>Transmission: {{x.Transmission}}</p></div>
+                                <div class="col-lg-8"><p hidden>SupplierID: {{x.SupplierID}}</p></div>
+                                <div class="col-lg-8"><p>Location: {{x.Location}}</p></div>
+                                <div class="col-lg-8"><p>Date: {{x.Date}}</p></div>                                
+                                <div class="col-lg-8"><p hidden>AdminID: {{x.AdminID}}</p></div>
+                                <div class="col-lg-8"><p>TotalCars: {{x.TotalCars}}</p></div>
+                                <div class="col-lg-8"><p>CarsLeft: {{x.CarsLeft}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Edit" ng-click="GetCarById(x.CarId)" />
+                                    <input class="btn btn-primary" type="button" value="Delete" ng-click="DelCarById(x.CarId)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="Cars.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Cars</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Cars added</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row" ng-hide="HideCar">
+                    <article class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Update Car</div>
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Vehicle.CarId}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input class="form-control" type="text" ng-model="Vehicle.Name" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mileage</label>
+                                        <input class="form-control" type="text" ng-model="Vehicle.Mileage" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Price</label>
+                                        <input class="form-control" type="text" ng-model="Vehicle.Price" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>SpecialOffer</label>
+                                        <input class="form-control" type="text" ng-model="Vehicle.SpecialOffer" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>CarSpecifications</label>
+                                        <input class="form-control" type="text" ng-model="Vehicle.CarSpecifications" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Transmission</label>
+                                        <input class="form-control" type="text" ng-model="Vehicle.Transmission" />
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Vehicle.SupplierID}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Location</label>
+                                        <input class="form-control" type="text" ng-model="Vehicle.Location" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Date</label>                                        
+                                        <input type="text" datepicker placeholder="Select Date" ng-model="Vehicle.Date" id="departDate" name="departDate" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Vehicle.AdminID}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>TotalCars</label>
+                                        <input class="form-control" type="text" ng-model="Vehicle.TotalCars" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>CarsLeft</label>
+                                        <input class="form-control" type="text" ng-model="Vehicle.CarsLeft" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" value="updateCar" ng-click="updateCar(Vehicle)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!--Testing-->
+            </div>
+            <div ng-show="tab === 3">                
+                <h1>Insert Car Images</h1>
+                <form novalidate name="f1" ng-submit="SaveFile()">
+                    <div style="color: red">{{Message}}</div>
+                    <table>
+                        <tr>
+                            <td>Select File : </td>
+                            <td>
+                                <input type="file" name="file" accept="image/*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" required />
+                                <span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.file.$error.required">Image required!</span>
+                                <span class="error">{{FileInvalidMessage}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Description : </td>
+                            <td>
+                                <input type="text" name="uFileDescription" ng-model="FileDescription" class="{{(IsFormSubmitted?'ng-dirty' + (f1.uFileDescription.$invalid?' ng-invalid':''):'')}}" autofocus />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Car Name : </td>
+                            <td>
+                                <input type="text" name="uFileCarName" ng-model="FileCarName" class="{{(IsFormSubmitted?'ng-dirty' + (f1.uFileCarName.$invalid?' ng-invalid':''):'')}}" autofocus />
+                                <select ng-model="FileDescription" required class="{{(IsFormSubmitted?'ng-dirty' + (f1.uFileCarName.$invalid?' ng-invalid':''):'')}}" autofocus>
+                                    <option ng-repeat="x in Cars" value="{{x.Name}}">{{x.Name}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="submit" value="Upload File" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </article>
+    </div>
+
+</body>
+</html>

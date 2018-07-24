@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Extras Page</title>
+</head>
+<body>
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a ui-sref="Index">Home</a></li>
+            <li><a ui-sref="Search">Search</a></li>
+            <li><a ui-sref="FilterSearch">Filter Search</a></li>
+            <li><a ui-sref="Traveller">Traveller</a></li>
+            <li class="active">Extras</li>
+        </ol>
+        <ol class="breadcrumb">
+            <li><a ui-sref="ClientDashboard">DashBoard</a></li>
+            <li>Logged in as : {{Email}}</li>
+            <li><a ui-sref="Index">Logout</a></li>
+        </ol>
+        <div class="row">
+            <article class="col-sm-8">
+                <header class="page-header">
+                    <h1 class="page-title">Customize your trip</h1>
+                </header>
+                <!--Testing-->
+                <div class="row">
+                    <div ng-init="extras">
+                        <div ng-repeat="extra in extras">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">{{extra.Name}}</div>
+                                <div class="panel-body">
+                                    {{extra.Description}}<br/>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-lg-2"><input type="checkbox" ng-click="GetPrice(extra.Price,$event)" /></div>
+                                        <div class="col-lg-10 text-right"><p>{{msg}}</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <input type="submit" value="Book" class="btn btn-primary" ng-click="MakeBooking()" /><!--add to database-->
+                        <input type="submit" value="Make Payment" class="btn btn-primary" ui-sref="Booking"/>
+                    </div>
+                </div>
+                <!--Testing-->                
+            </article>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Details</div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>Airline Name</dt>
+                            <dd>{{details.AirlineName}}</dd>
+                            <dd><img ng-src="{{img}}" style="width:100px;" /></dd>
+                            <dt>Departure Time</dt>
+                            <dd>{{details.DepartureTime}}</dd>
+                            <dt>Arrival Time</dt>
+                            <dd>{{details.ArrivalTime}}</dd>
+                            <dt>Departure Location</dt>
+                            <dd>{{details.DepartureLocation}}</dd>
+                            <dt>Arrival Location</dt>
+                            <dd>{{details.ArrivalLocation}}</dd>
+                            <dt>Stops</dt>
+                            <dd>{{details.Stops}}</dd>
+                            <dt>Price</dt>
+                            <dd>{{details.Price}}</dd>
+                            <dt>Flight Date</dt>
+                            <dd>{{details.FlightDate}}</dd>
+                            <dt>Total Cost</dt>
+                            <dd>{{Total}}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</body>
+</html>

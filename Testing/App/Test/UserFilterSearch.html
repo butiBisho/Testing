@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a ui-sref="Index">Home</a></li>
+            <li class="active">Filter Search</li>
+        </ol>
+        <div class="row">
+            <article class="col-xs-12">
+                <div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Search Details</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <input value="{{tasks.departureLocation}}" style="height:50px;width:220px;padding:5px;float:left;"/>
+                                    <input value="{{tasks.arrivalLocation}}" style="height:50px;width:220px;padding:5px;float:left;"/>
+                                    <input value="{{tasks.departureDate}}" style="height:50px;min-width:20px;padding:5px;float:left;"/>
+                                    <input value="{{tasks.arrivalDate}}" style="height:50px;min-width:20px;padding:5px;float:left;"/>
+                                    <input value="{{TotalTravellers}}" style="height:50px;width:50px;padding:5px;float:left;"/>
+                                    <button class="btn btn-primary" ui-sref="Index" style="height:50px;width:100px;padding:5px;float:left;">Refine Search</button>
+                                </div>                                
+                            </div>                            
+                        </div>
+                    </div>                    
+                </div>                
+            </article>
+        </div>
+        <div class="row">
+            <article class="col-xs-12">
+                <header class="page-header">
+                    <h4 class="page-title">Filter Search</h4>
+                </header>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label>Search :</label>
+                        <input class="form-control" value="" type="text" ng-model="search[searchBy]" />
+                    </div>
+                    <div class="form-group">
+                        <label>Search By :</label>
+                        <select ng-model="searchBy" class="form-control">
+                            <option value="$"></option>
+                            <option value="Price">Price</option>
+                            <option value="Stops">Stops</option>
+                            <option value="AirlineName">Airline Name</option>
+                        </select>
+                    </div>
+                </form>                
+                <br />
+                <div class="text-left"><b>Flights from {{tasks.departureLocation}} to {{tasks.arrivalLocation}}</b></div>
+               <br />
+                <div ng-repeat="x in flights | filter:search">
+                    <div class="panel panel-default">
+                        <div class="panel-body">                             
+                            <div class="row">
+                                <div class="col-lg-1"><b>{{x.AirlineName}}</b></div>
+                                <div class="col-lg-3">{{x.DepartureTime}}<br />{{x.DepartureLocation}}</div>
+                                <div class="col-lg-1">-</div>
+                                <div class="col-lg-3">{{x.ArrivalTime}}<br />{{x.ArrivalLocation}}</div>
+                                <div class="col-lg-1">{{x.Stops}} stops</div>
+                                <div class="col-lg-2"><b>R{{x.Price}}</b><br />per person</div>
+                                <div class="col-lg-1"><a ui-sref="Register">View</a></div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>                
+            </article>
+        </div>
+    </div>
+</body>
+</html>

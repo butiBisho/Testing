@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../../Content/dashboard.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="sidenav">
+        <a ui-sref="Booking">Bookings</a>
+        <a ui-sref="Additional">Additional</a>        
+    </div>
+    <div class="main">
+        <ol class="breadcrumb">
+            <li ui-sref="Index">Home</li>
+            <li class="active">Bookings</li>
+        </ol>
+        <article class="col-xs-12">
+            <header class="page-header">
+                <h3 class="page-title">Additional</h3>
+            </header>
+            <div ng-init="tab = 1" class="nav nav-pills" role="tablist">
+                <div ng-class="{active:tab===1}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 1" class="navbar-link active">Traveller</a><!--for flight booking-->
+                </div>
+                <div ng-class="{active:tab===2}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 2" class="navbar-link">Partner</a> <!--for hotel booking-->
+                </div>
+                <div ng-class="{active:tab===3}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 3" class="navbar-link">Driver</a><!--for car booking-->
+                </div>
+            </div>
+            <div ng-show="tab === 1">                
+                <div ng-show="Travellers.length!=0" ng-repeat="x in Travellers">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Traveller Details</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p hidden>TravellerId: {{x.TravellerId}}</p></div>
+                                <div class="col-lg-8"><p>Title: {{x.Title}}</p></div>
+                                <div class="col-lg-8"><p>First Name: {{x.FirstName}}</p></div>
+                                <div class="col-lg-8"><p>Surname: {{x.Surname}}</p></div>
+                                <div class="col-lg-8"><p>Email: {{x.Email}}</p></div>
+                                <div class="col-lg-8"><p>Mobile Number: {{x.MobileNumber}}</p></div>
+                                <div class="col-lg-8"><p>Day: {{x.Day}}</p></div>
+                                <div class="col-lg-8"><p>Month: {{x.Month}}</p></div>
+                                <div class="col-lg-8"><p>Year: {{x.Year}}</p></div>
+                                <div class="col-lg-8"><p hidden>ClientId: {{x.ClientId}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Edit" ng-click="GetTraveller(x.TravellerId)" />
+                                    <input class="btn btn-primary" type="button" value="Delete" ng-click="DelTravellerById(x.TravellerId)" />                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                <div ng-show="Travellers.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Travellers</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any travellers added</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>                
+                <div class="row" ng-hide="IsHidden1">
+                    <article class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Update Traveller</div>
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <span style="border:1px solid black" hidden>{{TravellerDetails.TravellerId}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Title</label>
+                                        <input class="form-control" type="text" ng-model="TravellerDetails.Title" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>FirstName</label>
+                                        <input class="form-control" type="text" ng-model="TravellerDetails.FirstName" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Surname</label>
+                                        <input class="form-control" type="text" ng-model="TravellerDetails.Surname" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input class="form-control" type="text" ng-model="TravellerDetails.Email" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>MobileNumber</label>
+                                        <input class="form-control" type="text" ng-model="TravellerDetails.MobileNumber" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Day</label>
+                                        <input class="form-control" type="text" ng-model="TravellerDetails.Day" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Month</label>
+                                        <input class="form-control" type="text" ng-model="TravellerDetails.Month" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Year</label>
+                                        <input class="form-control" type="text" ng-model="TravellerDetails.Year" />
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="border:1px solid black" hidden>{{TravellerDetails.ClientId}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" value="Update" ng-click="updateTraveller(TravellerDetails)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>                
+            </div>
+            <div ng-show="tab === 2">
+                <div ng-show="Partners.length!=0" ng-repeat="x in Partners">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Partner Details</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p hidden>Partner Id: {{x.PartnerId}}</p></div>
+                                <div class="col-lg-8"><p>First Name: {{x.FirstName}}</p></div>
+                                <div class="col-lg-8"><p>Last Name: {{x.LastName}}</p></div>
+                                <div class="col-lg-8"><p hidden>ClientId: {{x.ClientId}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Edit" ng-click="GetPartner(x.PartnerId)" />
+                                    <input class="btn btn-primary" type="button" value="Delete" ng-click="DelPartnerById(x.PartnerId)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="Partners.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Partners</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Partners added</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row" ng-hide="IsHidden2">
+                    <article class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Update Partner</div>
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <span style="border:1px solid black" hidden>{{PartnerDetails.PartnerId}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input class="form-control" type="text" ng-model="PartnerDetails.FirstName" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input class="form-control" type="text" ng-model="PartnerDetails.LastName" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="hidden" ng-model="PartnerDetails.ClientId" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" value="Update" ng-click="updatePartner(PartnerDetails)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div ng-show="tab === 3">
+                <div ng-show="Drivers.length!=0" ng-repeat="x in Drivers">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Partner Details</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p hidden>DriverId: {{x.DriverId}}</p></div>
+                                <div class="col-lg-8"><p>First Name: {{x.FirstName}}</p></div>
+                                <div class="col-lg-8"><p>Surname: {{x.Surname}}</p></div>
+                                <div class="col-lg-8"><p>Email: {{x.Email}}</p></div>
+                                <div class="col-lg-8"><p>Phone: {{x.Phone}}</p></div>
+                                <div class="col-lg-8"><p>Address: {{x.Address}}</p></div>
+                                <div class="col-lg-8"><p>City: {{x.City}}</p></div>
+                                <!--<div class="col-lg-8"><p>PostCode: {{x.PostCode}}</p></div>-->
+                                <div class="col-lg-8"><p>Country: {{x.Country}}</p></div>
+                                <div class="col-lg-8"><p>FlightNumber: {{x.FlightNumber}}</p></div>
+                                <div class="col-lg-8"><p>Age: {{x.Age}}</p></div>
+                                <div class="col-lg-8"><p hidden>ClientId: {{x.ClientId}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Edit" ng-click="GetDriver(x.DriverId)" />
+                                    <input class="btn btn-primary" type="button" value="Delete" ng-click="DelDriverById(x.DriverId)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="Drivers.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Drivers</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Drivers added</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-hide="IsHidden3">
+                    <article class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Update Driver</div>
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <span style="border:1px solid black" hidden>{{DriverDetails.DriverId}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input class="form-control" type="text" ng-model="DriverDetails.FirstName" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Surname</label>
+                                        <input class="form-control" type="text" ng-model="DriverDetails.Surname" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input class="form-control" type="text" ng-model="DriverDetails.Email" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <input class="form-control" type="text" ng-model="DriverDetails.Phone" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <input class="form-control" type="text" ng-model="DriverDetails.Address" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input class="form-control" type="text" ng-model="DriverDetails.City" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>PostCode</label>
+                                        <input class="form-control" type="text" ng-model="DriverDetails.PostCode" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <input class="form-control" type="text" ng-model="DriverDetails.Country" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Flight Number</label>
+                                        <input class="form-control" type="text" ng-model="DriverDetails.FlightNumber" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Age</label>
+                                        <input class="form-control" type="text" ng-model="DriverDetails.Age" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="hidden" ng-model="DriverDetails.ClientId" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" value="Update" ng-click="updateDriver(DriverDetails)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <br />
+            </div>
+        </article>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1597a1a3f80b410189d828efe2cb9911" Name="Diagram1" ZoomLevel="66">
+        <EntityTypeShape EntityType="BootCampModel.Location" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BootCampModel.Airline" Width="1.5" PointX="3.375" PointY="1.5" />
+        <EntityTypeShape EntityType="BootCampModel.Flight" Width="1.5" PointX="5.625" PointY="1" />
+        <AssociationConnector Association="BootCampModel.FK_Flight_AirLine" />
+        <EntityTypeShape EntityType="BootCampModel.Extra" Width="1.5" PointX="0.5" PointY="4.25" />
+        <EntityTypeShape EntityType="BootCampModel.Hotel" Width="1.5" PointX="5.625" PointY="5" />
+        <EntityTypeShape EntityType="BootCampModel.Residence" Width="1.5" PointX="3.375" PointY="5.125" />
+        <EntityTypeShape EntityType="BootCampModel.Room" Width="1.5" PointX="7.875" PointY="5" />
+        <AssociationConnector Association="BootCampModel.FK_Hotel_Residence" />
+        <AssociationConnector Association="BootCampModel.FK_Room_Hotel" />
+        <EntityTypeShape EntityType="BootCampModel.Car" Width="1.5" PointX="10.625" PointY="1" />
+        <EntityTypeShape EntityType="BootCampModel.Supplier" Width="1.5" PointX="8.375" PointY="1.5" />
+        <AssociationConnector Association="BootCampModel.FK_Car_Supplier" />
+        <EntityTypeShape EntityType="BootCampModel.Client" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="BootCampModel.Administrator" Width="1.5" PointX="7" PointY="8.125" />
+        <EntityTypeShape EntityType="BootCampModel.Driver" Width="1.5" PointX="3" PointY="9" />
+        <EntityTypeShape EntityType="BootCampModel.Partner" Width="1.5" PointX="3" PointY="13.375" />
+        <EntityTypeShape EntityType="BootCampModel.Traveller" Width="1.5" PointX="0.5" PointY="12.75" />
+        <AssociationConnector Association="BootCampModel.FK_Driver_Client" />
+        <AssociationConnector Association="BootCampModel.FK_Partner_Client" />
+        <AssociationConnector Association="BootCampModel.FK_Traveller_Client" />
+        <AssociationConnector Association="BootCampModel.FK_Airline_Administrator" />
+        <AssociationConnector Association="BootCampModel.FK_Car_Administrator" />
+        <AssociationConnector Association="BootCampModel.FK_Extras_Administrator" />
+        <AssociationConnector Association="BootCampModel.FK_Flight_Administrator" />
+        <AssociationConnector Association="BootCampModel.FK_Hotel_Administrator" />
+        <AssociationConnector Association="BootCampModel.FK_Location_Administrator" />
+        <AssociationConnector Association="BootCampModel.FK_Residence_Administrator" />
+        <AssociationConnector Association="BootCampModel.FK_Room_Administrator" />
+        <AssociationConnector Association="BootCampModel.FK_Supplier_Administrator" />
+        <EntityTypeShape EntityType="BootCampModel.Client_Car" Width="1.5" PointX="13.875" PointY="4.75" />
+        <EntityTypeShape EntityType="BootCampModel.Client_Flight" Width="1.5" PointX="10.875" PointY="6.75" />
+        <EntityTypeShape EntityType="BootCampModel.Client_Hotel" Width="1.5" PointX="9.875" PointY="10.75" />
+        <AssociationConnector Association="BootCampModel.FK_Client_Car_Car" />
+        <AssociationConnector Association="BootCampModel.FK_Client_Car_Client" />
+        <AssociationConnector Association="BootCampModel.FK_Client_Flight_Client" />
+        <AssociationConnector Association="BootCampModel.FK_Client_Hotel_Client" />
+        <AssociationConnector Association="BootCampModel.FK_Client_Flight_Flight" />
+        <AssociationConnector Association="BootCampModel.FK_Client_Hotel_Hotel" />
+        <EntityTypeShape EntityType="BootCampModel.CarPayment" Width="1.5" PointX="16.125" PointY="6.125" />
+        <EntityTypeShape EntityType="BootCampModel.FlightPayment" Width="1.5" PointX="13.125" PointY="9.125" />
+        <EntityTypeShape EntityType="BootCampModel.HotelPayment" Width="1.5" PointX="16.125" PointY="11.625" />
+        <AssociationConnector Association="BootCampModel.FK_CarPayment_Client" />
+        <AssociationConnector Association="BootCampModel.FK_CarPayment_ClientCar" />
+        <AssociationConnector Association="BootCampModel.FK_FlightPayment_Client" />
+        <AssociationConnector Association="BootCampModel.FK_HotelPayment_Client" />
+        <AssociationConnector Association="BootCampModel.FK_FlightPayment_ClientFlight" />
+        <AssociationConnector Association="BootCampModel.FK_HotelPayment_ClientHotel" />
+        <EntityTypeShape EntityType="BootCampModel.Gallery" Width="1.5" PointX="7.375" PointY="18.25" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

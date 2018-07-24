@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Traveller Page</title>
+</head>
+<body>
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a ui-sref="Index">Home</a></li>
+            <li><a ui-sref="Search">Search</a></li>
+            <li><a ui-sref="FilterSearch">Filter Search</a></li>
+            <li class="active">Traveller</li>
+        </ol>
+        <ol class="breadcrumb">
+            <li><a ui-sref="ClientDashboard">DashBoard</a></li>
+            <li>Logged in as : {{Email}}</li>
+            <li><a ui-sref="Index">Logout</a></li>
+        </ol>
+        <div class="row">
+            <article class="col-sm-8">
+                <header class="page-header">
+                    <h1 class="page-title">Add Traveller</h1>
+                </header>
+                <p><b>Total Travellers:{{total}}</b></p>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3>Add Traveller</h3>
+                            <hr/>
+                            <form novalidate name="f1" ng-submit="SaveData(Traveller)">
+                                <div style="color:red">{{message}}</div>
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <select class="form-control" ng-model="Traveller.Title" name="uTitle">
+                                        <option value=""></option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Ms">Ms</option>
+                                        <option value="Mrs">Mrs</option>
+                                    </select>
+                                    <span class="error" ng-show="(f1.uTitle.$dirty || submitted) && f1.uTitle.$error.required">Title required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input class="form-control" type="text" ng-model="Traveller.FirstName" name="uFirstName" ng-class="submitted?'ng-dirty':''" />
+                                    <span class="error" ng-show="(f1.uFirstName.$dirty || submitted) && f1.uFirstName.$error.required">First Name required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Surname</label>
+                                    <input class="form-control" type="text" ng-model="Traveller.Surname" name="Surname" ng-class="submitted?'ng-dirty':''" required />
+                                    <span class="error" ng-show="(f1.Surname.$dirty || submitted) && f1.Surname.$error.required">Surname required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input class="form-control" type="email" ng-model="Traveller.Email" name="Email" ng-class="submitted?'ng-dirty':''" required />
+                                    <span class="error" ng-show="(f1.uEmail.$dirty || submitted) && f1.uEmail.$error.required">Email required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mobile Number</label>
+                                    <input class="form-control" type="text" ng-model="Traveller.MobileNumber" name="mobileNumber" ng-class="submitted?'ng-dirty':''" required />
+                                    <span class="error" ng-show="(f1.mobileNumber.$dirty || submitted) && f1.mobileNumber.$error.required">mobileNumber required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date of Birth</label><br/>
+                                    <select class="form-control" name="day" ng-model="Traveller.Day" ng-options="opt as opt for opt in [] | minmax:1:31" style="height:35px;width:75px;padding:5px;float:left;">
+                                        <option value="day" selected>Day</option>
+                                    </select>
+                                    <span class="error" ng-show="(f1.day.$dirty || submitted) && f1.day.$error.required">day required!</span>
+                                    <select class="form-control" name="year" ng-model="Traveller.Year" ng-options="opt as opt for opt in [] | minmax:1907:2006" style="height:35px;width:75px;padding:5px;float:left;">
+                                        <option value="year" selected>Year</option>
+                                    </select>
+                                    <span class="error" ng-show="(f1.year.$dirty || submitted) && f1.year.$error.required">year required!</span>
+                                    <select class="form-control" name="month" ng-model="Traveller.Month" style="height:35px;width:130px;padding:5px;float:left;">
+                                        <option value="month" selected>Month</option>
+                                        <option value="jan">January</option>
+                                        <option value="feb">February</option>
+                                        <option value="mar">March</option>
+                                        <option value="apr">April</option>
+                                        <option value="may">May</option>
+                                        <option value="june">June</option>
+                                        <option value="july">July</option>
+                                        <option value="aug">August</option>
+                                        <option value="sep">September</option>
+                                        <option value="oct">October</option>
+                                        <option value="nov">November</option>
+                                        <option value="dec">December</option>
+                                    </select>
+                                    <span class="error" ng-show="(f1.month.$dirty || submitted) && f1.month.$error.required">month required!</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="{{submitText}}" class="btn btn-primary"/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Continue" class="btn btn-primary" ui-sref="Extras"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>                
+            </article>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Details</div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>Airline Name</dt>
+                            <dd>{{details.AirlineName}}</dd>
+                            <dd><img ng-src="{{img}}" style="width:100px;" /></dd>
+                            <dt>Departure Time</dt>
+                            <dd>{{details.DepartureTime}}</dd>
+                            <dt>Arrival Time</dt>
+                            <dd>{{details.ArrivalTime}}</dd>
+                            <dt>Departure Location</dt>
+                            <dd>{{details.DepartureLocation}}</dd>
+                            <dt>Arrival Location</dt>
+                            <dd>{{details.ArrivalLocation}}</dd>
+                            <dt>Stops</dt>
+                            <dd>{{details.Stops}}</dd>
+                            <dt>Price</dt>
+                            <dd>{{details.Price}}</dd>
+                            <dt>Flight Date</dt>
+                            <dd>{{details.FlightDate}}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

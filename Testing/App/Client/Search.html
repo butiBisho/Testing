@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Search Page</title>
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />-->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css"/>
+    <style type="text/css">
+        select:required:invalid {
+            color: gray;
+        }
+
+        option[value=""][disabled] {
+            display: none;
+        }
+
+        option {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a ui-sref="Index">Home</a></li>
+            <li class="active">Search</li>
+        </ol>
+        <ol class="breadcrumb">
+            <li><a ui-sref="ClientDashboard">DashBoard</a></li>
+            <li>Logged in as : {{Email}}</li>
+            <li><a ui-sref="Index">Logout</a></li>
+        </ol>
+        <div class="row">
+            <article class="col-xs-12">
+                <header class="page-header">
+                    <h1 class="page-title">Search Flight</h1>
+                </header>
+                <form class="form-inline">
+                    <!--<div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+            </div>-->
+
+                    <label class="btn btn-secondary active">
+                        <input type="radio" name="return" autocomplete="off" ng-model="btnRadio" ng-value="0"> One Way
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="oneWay" autocomplete="off" ng-model="btnRadio" ng-value="1"> Return
+                    </label>
+
+                    <br />
+                    <!--Testing-->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <select ng-model="requestedData.departureLocation" required name="departure" style="height:70px;min-width:20px;padding:5px;float:left;">
+                                <option value="" disabled selected>select departure city</option>
+                                <option ng-repeat="x in locations" value="{{x.AirportName}}">{{x.AirportName}}</option>
+                            </select>
+                            <select ng-model="requestedData.arrivalLocation" required name="arrival" style="height:70px;min-width:20px;padding:5px;float:left;">
+                                <option value="" disabled selected>select arrival city</option>
+                                <option ng-repeat="y in locations" value="{{y.AirportName}}">{{y.AirportName}}</option>
+                            </select>
+                            <input name="departDate" datepicker type="text" placeholder="Select Departure Date" ng-model="requestedData.departureDate" style="height:70px;min-width:10px;padding:5px;float:left;" />
+                            <input name="arrivalDate" datepicker type="text" placeholder="Select Arrival Date" ng-model="requestedData.arrivalDate" style="height:70px;min-width:10px;padding:5px;float:left;" ng-disabled="btnRadio == 0" />
+                            <select required name="adults" ng-model="requestedData.adults" ng-options="opt as opt for opt in [] | minmax:1:9" style="height:70px;width:80px;padding:5px;float:left;">
+                                <option value="" disabled selected>adults</option>
+                            </select>
+                            <select required name="children" ng-model="requestedData.children" ng-options="opt as opt for opt in [] | minmax:0:7" style="height:70px;width:80px;padding:5px;float:left;">
+                                <option value="" disabled selected>children</option>
+                            </select>
+                            <select required name="infants" ng-model="requestedData.infants" ng-options="opt as opt for opt in [] | minmax:0:1" style="height:70px;width:80px;padding:5px;float:left;">
+                                <option value="" disabled selected>infants</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <button class="btn btn-primary" ng-click="saveSelectedData(requestedData)" style="float:left;display:block;height:70px;width:100px;">Search</button>
+                        </div>
+                    </div>
+                    <!--Testing-->
+                </form>
+            </article>
+            <hr />
+            <div class="text-center">
+                <h3>Travel The World with TravelStart</h3>
+            </div>
+            <article class="col-xs-12">
+                <div class="col-md-6 text-center" style="padding-left:5%;">
+                    <img src="../../flight/pic8.jpg" style="height:50%; width:100%;padding-bottom:7%;" class="img-thumbnail" />
+                </div>
+                <div class="col-md-6 text-center" style="padding-left:5%;">
+                    <img src="../../flight/images.jpg" style="height:60%; width:100%;padding-bottom:7%;" class="img-thumbnail" />
+                </div>
+            </article>
+        </div>
+    </div>
+    <!--search according to Location-->
+    
+
+</body>
+</html>

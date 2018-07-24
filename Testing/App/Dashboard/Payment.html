@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div class="container">        
+        <ol class="breadcrumb">
+            <li><a ui-sref="ClientDashboard">DashBoard</a></li>
+            <li>Logged in as : {{Email}}</li>
+            <li><a ui-sref="Index">Logout</a></li>
+        </ol>
+        <div class="row">
+            <article class="col-sm-8">
+                <header class="page-header">
+                    <h1 class="page-title">Make Payment</h1>
+                </header>
+                <form novalidate name="f1" ng-submit="SaveData(FlightPayment)">
+                    <div style="color:red">{{message}}</div>
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input class="form-control" type="text" ng-model="FlightPayment.cardNumber" name="cardNumber" ng-class="submitted?'ng-dirty':''" required />
+                        <span class="error" ng-show="(f1.cardNumber.$dirty || submitted) && f1.cardNumber.$error.required">Card Number required!</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Name on card</label>
+                        <input class="form-control" type="text" ng-model="FlightPayment.nameOnCard" name="nameOnCard" ng-class="submitted?'ng-dirty':''" />
+                        <span class="error" ng-show="(f1.nameOnCard.$dirty || submitted) && f1.nameOnCard.$error.required">Name on card required!</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Expire date</label>
+                        <select name="month" ng-model="FlightPayment.Month" ng-options="opt as opt for opt in [] | minmax:1:12">
+                            <option value="month" selected>Month</option>
+                        </select>
+                        <span class="error" ng-show="(f1.month.$dirty || submitted) && f1.month.$error.required">month required!</span>
+                        <select name="year" ng-model="FlightPayment.Year" ng-options="opt as opt for opt in [] | minmax:1907:2006">
+                            <option value="year" selected>Year</option>
+                        </select>
+                        <span class="error" ng-show="(f1.year.$dirty || submitted) && f1.year.$error.required">Year required!</span>
+                    </div>
+                    <div class="form-group">
+                        <label>CVV</label>
+                        <input class="form-control" type="text" ng-model="FlightPayment.CVV" name="CVV" ng-class="submitted?'ng-dirty':''" required />
+                        <span class="error" ng-show="(f1.CVV.$dirty || submitted) && f1.CVV.$error.required">CVV required!</span>
+                    </div>
+
+                    <hr />
+
+                    <div class="form-group">
+                        <label>Address line 1</label>
+                        <textarea rows="4" cols="50" name="addressLine1" class="form-control" ng-model="FlightPayment.addressLine1" ng-class="submitted?'ng-dirty':''" required>
+                        </textarea>
+                        <span class="error" ng-show="(f1.addressLine1.$dirty || submitted) && f1.addressLine1.$error.required">Address Line 1 required!</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Address line 2</label>
+                        <textarea rows="4" cols="50" name="addressLine2" class="form-control" ng-model="FlightPayment.addressLine2" ng-class="submitted?'ng-dirty':''" required>
+                        </textarea>
+                        <span class="error" ng-show="(f1.addressLine2.$dirty || submitted) && f1.addressLine2.$error.required">Address Line 2 required!</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Postal code</label>
+                        <input class="form-control" type="text" ng-model="FlightPayment.PostalCode" name="PostalCode" ng-class="submitted?'ng-dirty':''" />
+                        <span class="error" ng-show="(f1.PostalCode.$dirty || submitted) && f1.PostalCode.$error.required">Postal Code required!</span>
+                    </div>
+                    <div class="form-group">
+                        <label>City</label>
+                        <input class="form-control" type="text" ng-model="FlightPayment.City" name="City" ng-class="submitted?'ng-dirty':''" />
+                        <span class="error" ng-show="(f1.City.$dirty || submitted) && f1.City.$error.required">City required!</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Country</label>
+                        <input class="form-control" type="text" ng-model="FlightPayment.Country" name="Country" ng-class="submitted?'ng-dirty':''" />
+                        <span class="error" ng-show="(f1.Country.$dirty || submitted) && f1.Country.$error.required">Country required!</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact number</label>
+                        <input class="form-control" type="text" ng-model="FlightPayment.ContactNumber" name="ContactNumber" ng-class="submitted?'ng-dirty':''" />
+                        <span class="error" ng-show="(f1.Country.$dirty || submitted) && f1.Country.$error.required">Country required!</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <input type="submit" value="{{submitText}}" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+            </article>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Details</div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>Departure Time</dt>
+                            <dd>{{details.DepartureTime}}</dd>
+                            <dt>Arrival Time</dt>
+                            <dd>{{details.ArrivalTime}}</dd>
+                            <dt>Departure Location</dt>
+                            <dd>{{details.DepartureLocation}}</dd>
+                            <dt>Arrival Location</dt>
+                            <dd>{{details.ArrivalLocation}}</dd>
+                            <dt>Stops</dt>
+                            <dd>{{details.Stops}}</dd>
+                            <dt>Price</dt>
+                            <dd>{{details.Price}}</dd>
+                            <dt>Airline Name</dt>
+                            <dd>{{details.AirlineName}}</dd>
+                            <dt>Flight Date</dt>
+                            <dd>{{details.FlightDate}}</dd>
+                            <dt>Total Cost</dt>
+                            <dd>{{Total}}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

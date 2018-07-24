@@ -1,0 +1,512 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../../Content/dashboard.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="sidenav">
+        <!--<a ui-sref="Client">Client</a>-->
+        <a ui-sref="Flight">Flight</a>
+        <a ui-sref="Car">Car</a>
+        <a ui-sref="Hotel">Hotel</a>
+    </div>
+    <div class="main">
+        <ol class="breadcrumb">
+            <li><a ui-sref="AdminDashBoard">Dashboard</a></li>
+            <li class="active">Hotels</li>
+        </ol>
+        <article class="col-xs-12">
+            <header class="page-header">
+                <h3 class="page-title">Hotel Module</h3>
+            </header>
+            <div ng-init="tab = 1" class="nav nav-pills" role="tablist">
+                <div ng-class="{active:tab===1}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 1" class="navbar-link active">Residence</a>
+                </div>
+                <div ng-class="{active:tab===2}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 2" class="navbar-link">Hotel</a>
+                </div>
+                <div ng-class="{active:tab===3}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 3" class="navbar-link">Room</a>
+                </div>
+                <div ng-class="{active:tab===4}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 4" class="navbar-link">Hotel Images</a>
+                </div>
+                <div ng-class="{active:tab===5}" class="nav-item" style="display:inline-block; font-size:20px; padding:20px;">
+                    <a href="" ng-click="tab = 5" class="navbar-link">Room Images</a>
+                </div>
+            </div>
+            <div ng-show="tab === 1">
+                <!--Test-->
+                <div class="form-group">
+                    <input class="btn btn-primary" type="button" value="Insert Residence" ng-click="OpenInsertResidence()" />
+                </div>
+                <div ng-hide="InsertResidence">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3>Add Residence</h3>
+                            <div class="form-group">
+                                <label>Street Name</label>
+                                <input type="text" ng-model="Residence.StreetName" placeholder="Enter Street Name" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Code</label>
+                                <input type="text" ng-model="Residence.Code" placeholder="Enter Code" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" ng-model="Residence.City" placeholder="Enter City" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Town</label>
+                                <input type="text" ng-model="Residence.Town" placeholder="Enter Town" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Country</label>
+                                <input type="text" ng-model="Residence.Country" placeholder="Enter Country" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="button" value="Insert Residence" ng-click="InsertAdminResidence(Residence)" class="btn btn-primary"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Test-->
+                <h1>List of Residences</h1>
+                <!--Testing-->
+                <div ng-show="Residences.length!=0" ng-repeat="x in Residences">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p hidden>SupplierId: {{x.LocationID}}</p></div>
+                                <div class="col-lg-8"><p>Name: {{x.StreetName}}</p></div>
+                                <div class="col-lg-8"><p>Code: {{x.Code}}</p></div>
+                                <div class="col-lg-8"><p>City: {{x.City}}</p></div>
+                                <div class="col-lg-8"><p>Town: {{x.Town}}</p></div>
+                                <div class="col-lg-8"><p>Country: {{x.Country}}</p></div>
+                                <div class="col-lg-8"><p hidden>AdminID: {{x.AdminID}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Edit" ng-click="GetResidenceById(x.LocationID)" />
+                                    <input class="btn btn-primary" type="button" value="Delete" ng-click="DelResidenceById(x.LocationID)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="Residences.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Residences</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Residences added</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row" ng-hide="HideResidence">
+                    <article class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Update Residence</div>
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Loc.LocationID}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>StreetName</label>
+                                        <input class="form-control" type="text" ng-model="Loc.StreetName" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Code</label>
+                                        <input class="form-control" type="text" ng-model="Loc.Code" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input class="form-control" type="text" ng-model="Loc.City" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Town</label>
+                                        <input class="form-control" type="text" ng-model="Loc.Town" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <input class="form-control" type="text" ng-model="Loc.Country" />
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Loc.AdminID}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" value="update Residence" ng-click="updateResidence(Loc)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!--Testing-->
+            </div>
+            <div ng-show="tab === 2">                
+                <div class="form-group">
+                    <input class="btn btn-primary" type="button" value="Insert Hotel" ng-click="OpenInsertHotel()" />
+                </div>
+                <!--Test-->
+                <div ng-hide="InsertHotel">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3>Add Hotel</h3>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" ng-model="Hotel.Name" placeholder="Enter Name" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>TelNumber</label>
+                                <input type="text" ng-model="Hotel.TelNumber" placeholder="Enter TelNumber" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Star Rating</label>
+                                <input type="number" ng-model="Hotel.StarRating" placeholder="Enter Star Rating" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Number Of Rooms</label>
+                                <input type="number" ng-model="Hotel.NumberOfRooms" placeholder="Enter NumberOfRooms" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>City</label>
+                                <!--<input type="text" ng-model="Hotel.LocationId" placeholder="Enter LocationId" class="form-control" />-->
+                                <select ng-model="Hotel.LocationId" required name="arrival" class="form-control">
+                                    <option ng-repeat="x in Residences" value="{{x.LocationID}}">{{x.City}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>RoomsLeft</label>
+                                <input type="number" ng-model="Hotel.RoomsLeft" placeholder="Enter Rooms Left" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="button" value="Insert Hotel" ng-click="InsertAdminHotel(Hotel)" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <!--Test-->
+                <h1>List of Hotels</h1>
+                <!--Testing-->
+                <div ng-show="Hotels.length!=0" ng-repeat="x in Hotels">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p hidden>HotelID: {{x.HotelID}}</p></div>
+                                <div class="col-lg-8"><p>Hotel Name: {{x.Name}}</p></div>
+                                <div class="col-lg-8"><p>TelNumber: {{x.TelNumber}}</p></div>
+                                <div class="col-lg-8"><p>StarRating: {{x.StarRating}}</p></div>
+                                <div class="col-lg-8"><p>NumberOfRooms: {{x.NumberOfRooms}}</p></div>
+                                <div class="col-lg-8"><p>LocationId: {{x.LocationId}}</p></div>
+                                <div class="col-lg-8"><p hidden>AdminID: {{x.AdminID}}</p></div>
+                                <div class="col-lg-8"><p>RoomsLeft: {{x.RoomsLeft}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Edit" ng-click="GetHotelById(x.HotelID)" />
+                                    <input class="btn btn-primary" type="button" value="Delete" ng-click="DelHotelById(x.HotelID)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="Hotels.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Hotels</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Hotels added</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row" ng-hide="HideHotel">
+                    <article class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Update Hotel</div>
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;visibility:hidden;">{{Flat.HotelID}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input class="form-control" type="text" ng-model="Flat.Name" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>TelNumber</label>
+                                        <input class="form-control" type="text" ng-model="Flat.TelNumber" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Star Rating</label>
+                                        <input class="form-control" type="text" ng-model="Flat.StarRating" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Number Of Rooms</label>
+                                        <input class="form-control" type="text" ng-model="Flat.NumberOfRooms" />
+                                    </div>
+                                    <div class="form-group">                                        
+                                        <span style="border:1px solid black;" hidden>{{Flat.LocationId}}</span>
+                                    </div>
+                                    <div class="form-group">                                        
+                                        <span style="border:1px solid black;" hidden>{{Flat.AdminID}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rooms Left</label>
+                                        <input class="form-control" type="text" ng-model="Flat.RoomsLeft" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" value="updateHotel" ng-click="updateHotel(Flat)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!--Testing-->
+            </div>
+            <div ng-show="tab === 3">                
+                <div class="form-group">
+                    <input class="btn btn-primary" type="button" value="Insert Room" ng-click="OpenInsertRoom()" />
+                </div>
+                <!--Test-->
+                <div ng-hide="InsertRoom">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3>Add Room</h3>
+                            <div class="form-group">
+                                <label>Accommodation Type</label>
+                                <input type="text" ng-model="Room.AccommodationType" placeholder="Enter Accommodation Type" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Facility</label>
+                                <input type="text" ng-model="Room.Facility" placeholder="Enter Facility" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Theme</label>
+                                <input type="text" ng-model="Room.Theme" placeholder="Enter Theme" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Accessibility Features</label>
+                                <input type="text" ng-model="Room.AccessibilityFeatures" placeholder="Enter Accessibility Features" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input type="number" ng-model="Room.Price" placeholder="Enter Price" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <!--<input type="text" ng-model="Room.HotelId" placeholder="Enter HotelId" class="form-control" />-->
+                                <select ng-model="Room.HotelId" required name="arrival" class="form-control">
+                                    <option ng-repeat="x in Hotels" value="{{x.HotelID}}">{{x.Name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Room Number</label>
+                                <input type="text" ng-model="Room.RoomNumber" placeholder="Enter RoomNumber" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" ng-model="Room.AdminID" placeholder="Enter AdminID" class="form-control" hidden/>
+                            </div>
+                            <div class="form-group">
+                                <input type="button" value="Insert Room" ng-click="InsertAdminRoom(Room)" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <!--Test-->
+                <h1>List of Rooms</h1>
+                <!--Testing-->
+                <div ng-show="Rooms.length!=0" ng-repeat="x in Rooms">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-8"><p hidden>RoomID: {{x.RoomID}}</p></div>
+                                <div class="col-lg-8"><p>AccommodationType: {{x.AccommodationType}}</p></div>
+                                <div class="col-lg-8"><p>Facility: {{x.Facility}}</p></div>
+                                <div class="col-lg-8"><p>Theme: {{x.Theme}}</p></div>
+                                <div class="col-lg-8"><p>AccessibilityFeatures: {{x.AccessibilityFeatures}}</p></div>
+                                <div class="col-lg-8"><p>Price: {{x.Price}}</p></div>
+                                <div class="col-lg-8"><p hidden>HotelId: {{x.HotelId}}</p></div>
+                                <div class="col-lg-8"><p>RoomNumber: {{x.RoomNumber}}</p></div>
+                                <div class="col-lg-8"><p hidden>AdminID: {{x.AdminID}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <input class="btn btn-primary" type="button" value="Edit" ng-click="GetRoomById(x.RoomID)" />
+                                    <input class="btn btn-primary" type="button" value="Delete" ng-click="DelRoomById(x.RoomID)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="Rooms.length==0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Rooms</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <p>You don't have any Rooms added</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row" ng-hide="HideRoom">
+                    <article class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Update Room</div>
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Space.RoomID}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Accommodation Type</label>
+                                        <input class="form-control" type="text" ng-model="Space.AccommodationType" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Facility</label>
+                                        <input class="form-control" type="text" ng-model="Space.Facility" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Theme</label>
+                                        <input class="form-control" type="text" ng-model="Space.Theme" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Accessibility Features</label>
+                                        <input class="form-control" type="text" ng-model="Space.AccessibilityFeatures" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Price</label>
+                                        <input class="form-control" type="text" ng-model="Space.Price" />
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Space.HotelId}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>RoomNumber</label>
+                                        <input class="form-control" type="text" ng-model="Space.RoomNumber" />
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="border:1px solid black;" hidden>{{Space.AdminID}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" value="updateRoom" ng-click="updateRoom(Space)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!--Testing-->
+            </div>
+            <div ng-show="tab === 4">                
+                <h1>Insert Hotel Images</h1>
+                <form novalidate name="f1" ng-submit="SaveFile()">
+                    <div style="color: red">{{Message}}</div>
+                    <table>
+                        <tr>
+                            <td>Select File : </td>
+                            <td>
+                                <input type="file" name="file" accept="image/*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" required />
+                                <span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.file.$error.required">Image required!</span>
+                                <span class="error">{{FileInvalidMessage}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Description : </td>
+                            <td>
+                                <input type="text" name="uFileDescription" ng-model="FileDescription" class="{{(IsFormSubmitted?'ng-dirty' + (f1.uFileDescription.$invalid?' ng-invalid':''):'')}}" autofocus />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Hotel Name : </td>
+                            <td>
+                                <!--<input type="text" name="uFileHotelName" ng-model="FileHotelName" class="{{(IsFormSubmitted?'ng-dirty' + (f1.uFileHotelName.$invalid?' ng-invalid':''):'')}}" autofocus />-->
+                                <select ng-model="FileHotelName" class="{{(IsFormSubmitted?'ng-dirty' + (f1.uFileHotelName.$invalid?' ng-invalid':''):'')}}" autofocus>
+                                    <option ng-repeat="x in Hotels" value="{{x.Name}}">{{x.Name}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="submit" value="Upload File" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div ng-show="tab === 5">                
+                <h1>Insert Room Images</h1>
+                <form novalidate name="f1" ng-submit="SaveRoomFile()">
+                    <div style="color: red">{{RoomMessage}}</div>
+                    <table>
+                        <tr>
+                            <td>Select File : </td>
+                            <td>
+                                <input type="file" name="file" accept="image/*" onchange="angular.element(this).scope().SelectedRoomFileForUpload(this.files)" required />
+                                <span class="error" ng-show="(f1.file.$dirty || IsRoomFormSubmitted) && f1.file.$error.required">Image required!</span>
+                                <span class="error">{{RoomFileInvalidMessage}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Description : </td>
+                            <td>
+                                <input type="text" name="uFileRoomDescription" ng-model="FileRoomDescription" class="{{(IsRoomFormSubmitted?'ng-dirty' + (f1.uFileRoomDescription.$invalid?' ng-invalid':''):'')}}" autofocus />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Room Number : </td>
+                            <td>
+                                <!--<input type="text" name="uFileRoomNumber" ng-model="FileRoomNumber" class="{{(IsRoomFormSubmitted?'ng-dirty' + (f1.uFileRoomNumber.$invalid?' ng-invalid':''):'')}}" autofocus />-->
+                                <select ng-model="FileRoomNumber" class="{{(IsRoomFormSubmitted?'ng-dirty' + (f1.uFileRoomNumber.$invalid?' ng-invalid':''):'')}}" autofocus>
+                                    <option ng-repeat="x in Rooms" value="{{x.RoomNumber}}">{{x.RoomNumber}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="submit" value="Upload File" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>                
+                <!--Testing-->
+                <!--<table>
+                    <tr ng-repeat="x in Testing">
+                        <td>
+                            <img ng-src="{{x.FilePath}}" title="{{x.FileName}}" style="height:100px;width:100px;" />
+                        </td>
+                        <td>{{x.Description}}</td>
+                        <td>{{x.FileSize}}</td>
+                        <td>{{x.RoomNumber}}</td>
+                        <td>dfggdffd</td>
+                    </tr>
+                </table>-->
+                <!--Testing-->
+            </div>
+        </article>
+    </div>
+
+</body>
+</html>

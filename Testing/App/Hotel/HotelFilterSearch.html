@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a ui-sref="Index">Home</a></li>
+            <li><a ui-sref="HotelIndex">Hotel</a></li>
+            <li class="active">Filter Search</li>
+        </ol>
+        <ol class="breadcrumb">
+            <li><a ui-sref="ClientDashboard">DashBoard</a></li>
+            <li>Logged in as : {{Email}}</li>
+            <li><a ui-sref="Index">Logout</a></li>
+        </ol>
+        <div class="row">
+            <article class="col-xs-12">     
+                <div class="panel panel-info">
+                    <div class="panel-heading">Search Details</div>
+                    <div class="panel-body">
+                        <!--Testing-->
+                        <div class="row">
+                            <div class="col-lg-10">
+
+                            </div>
+                            <div class="col-lg-12">
+                                <input value="{{tasks.destination}}" style="height:50px;width:220px;padding:5px;float:left;" />
+                                <input value="{{tasks.checkIn}}" style="height:50px;width:220px;padding:5px;float:left;" />
+                                <input value="{{tasks.checkOut}}" style="height:50px;min-width:20px;padding:5px;float:left;" />
+                                <input value="{{tasks.rooms}}" style="height:50px;min-width:20px;padding:5px;float:left;" />
+                                <input value="{{tasks.adults}}" style="height:50px;width:50px;padding:5px;float:left;" />
+                                <input value="{{tasks.children}}" style="height:50px;width:50px;padding:5px;float:left;" />
+                                <button class="btn btn-primary" ui-sref="HotelIndex" style="height:50px;width:100px;padding:5px;float:left;">Refine Search</button>
+                            </div>
+                        </div>
+                        <!--Testing-->
+                        <!--<form class="form-inline">
+        <div class="form-group">
+            <label>Destination</label>
+            <input class="form-control" type="text" name="destination" value="{{tasks.destination}}" />
+        </div>
+        <div class="form-group">
+            <label>Check in</label>
+            <input class="form-control" type="text" name="checkIn" value="{{tasks.checkIn}}" />
+        </div>
+        <div class="form-group">
+            <label>Check out</label>
+            <input class="form-control" type="text" name="checkOut" value="{{tasks.checkOut}}" />
+        </div>
+        <div class="form-group">
+            <label>Rooms</label>
+            <input class="form-control" type="text" name="rooms" value="{{tasks.rooms}}" />
+        </div>
+        <div class="form-group">
+            <label>Adults</label>
+            <input class="form-control" type="text" name="adults" value="{{tasks.adults}}" />
+        </div>
+        <div class="form-group">
+            <label>Children</label>
+            <input class="form-control" type="text" name="children" value="{{tasks.children}}" />
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" ui-sref="HotelSearch">Refine Search</button>
+        </div>
+    </form>-->
+                    </div>
+                </div>                
+            </article>
+        </div>
+        <div class="row">
+            <article class="col-xs-12">
+                <header class="page-header">
+                    <h4 class="page-title">Filter Search</h4>
+                </header>
+                <!--Testing-->
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label>Search :</label>
+                        <input class="form-control" value="" type="text" ng-model="search[searchBy]" />
+                    </div>
+                    <div class="form-group" >
+                        <label>Filter By :</label>
+                        <select ng-model="searchBy" class="form-control">
+                            <option value="$"></option>
+                            <option value="Name">Name</option>
+                            <option value="Destination">Destination</option>
+                            <option value="StarRating">Star Rating</option>
+                            <option value="TelNumber">Telephone Number</option>
+                        </select>
+                    </div>
+                </form>
+                <br />
+                <div ng-repeat="x in hotels | filter:search">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{x.Name}}</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-lg-10">
+                                        <div class="col-lg-10">
+                                            {{x.StreetName}} {{x.Town}} {{x.Code}} {{x.Country}}, {{x.Destination}}
+                                        </div> 
+                                        <div class="col-lg-8">
+                                            <label>TelNumber:</label> {{x.TelNumber}}
+                                        </div>                                        
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-lg-10">                                        
+                                        <div class="col-lg-2"><label>Rooms Available:</label><br />{{x.NumberOfRooms}}</div>
+                                        <div class="col-lg-2"><label>Rooms Left:</label><br />{{x.RoomsLeft}}</div>
+                                        <div class="col-lg-6 text-right">   
+                                            <label>Star Rating:</label> {{x.StarRating}}<br/>
+                                            <span><b><a href="" ng-click="HotelSelected(x)">Select</a></b></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Testing-->
+                <!--<table>
+                    <tr>
+                        <td>Search :</td>
+                        <td><input type="text" ng-model="search[searchBy]"/></td>
+                    </tr>
+                    <tr>
+                        <td>Search By :</td>
+                        <td>
+                            <select ng-model="searchBy">
+                                <option value="$"></option>
+                                <option value="Name">Name</option>
+                                <option value="Price">Price</option>
+                                <option value="StarRating">Star Rating</option>                                
+                                <option value="TelNumber">TelNumber</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>-->
+                <!--<table>
+                    <tr>                        
+                        <th><b>Name</b></th>
+                        <th><b>Price</b></th>
+                        <th><b>StarRating</b></th>                        
+                        <th><b>TelNumber</b></th>
+                        <th><b>City</b></th>
+                    </tr>
+                    <tr ng-repeat="x in hotels | filter:search">
+                        <td>{{x.Name}}</td>
+                        <td>{{x.Price}}</td>
+                        <td>{{x.StarRating}}</td>
+                        <td>{{x.TelNumber}}</td>
+                        <td>{{x.Destination}}</td>
+                        <td><a href="" ng-click="HotelSelected(x)">View</a></td>
+                    </tr>
+                </table>-->
+            </article>
+        </div>
+    </div>
+
+</body>
+</html>
